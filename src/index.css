@@ -7,7 +7,57 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h1 {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 30px;
 }
+
+.results-details {
+  margin-top: -68px;
+  z-index: 2;
+}
+
+.detail-col {
+  border-right: 1px solid rgb(0, 0, 0, 0.15);
+  padding-left:2em;
+  padding-right: 2em;
+}
+
+.detail-label {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 1.75px;
+  text-transform: uppercase;
+  color: #2C2C2C;
+  mix-blend-mode: normal;
+  opacity: 0.5;
+}
+
+.detail-value {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 30px;
+  letter-spacing: -0.232143px;
+  color: #2C2C2C;
+}
+
+.map {
+  position: absolute;
+  width: 100wh;
+  height: 100vh;
+  z-index: 1;
+}
+
+.leaflet-container {
+   width: 100wh;
+  height: 100vh;
+}
+
