@@ -15,6 +15,11 @@ h1 {
   line-height: 30px;
 }
 
+.search-btn {
+  border-top-right-radius: 25%;
+  border-bottom-right-radius: 25%;
+}
+
 .results-details {
   margin-top: -68px;
   z-index: 2;

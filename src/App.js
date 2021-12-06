@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import axios from 'axios'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import { Icon } from 'leaflet'
 
-const IPIFY_API_URL = 'https://geo.ipify.org/api/v2/country,city?apiKey=at_2IhPTM5loBtQucYP8AWhFCMSjxfjq'
+const IPIFY_API_URL = `https://geo.ipify.org/api/v2/country,city?apiKey=${process.env.REACT_APP_IPIFY_API_KEY}`
 
 const App = () => {
   const [searchParams, setSearchParams] = useState({})
@@ -23,6 +22,7 @@ const App = () => {
   }
 
   const handleSearchClick = async () => {
+    setSearchResults(null)
     try {
       const response = await axios({
         method: 'get',
@@ -32,12 +32,6 @@ const App = () => {
     } catch (error) {
       console.error(error)
     }
-  }
-
-  const renderMarkerIcon = () => {
-    return (
-      <Icon imagePath="/images/icon-location.svg" />
-    )
   }
 
   const enabled = searchParams.value !== undefined && searchParams.value !== null
@@ -64,9 +58,9 @@ const App = () => {
             <button
               onClick={handleSearchClick}
               disabled={!enabled}
-              className="btn btn-dark"
+              className="search-btn btn btn-dark"
               type="button">
-              <img src="/images/icon-arrow.svg" alt="search button icon" />
+              <i><img src="/images/icon-arrow.svg" alt="search button icon" width="15" /></i>
             </button>
           </div>
 
@@ -87,7 +81,7 @@ const App = () => {
                 </div>
                 <div className="detail-col col-md-3">
                   <span className="detail-label">TIMEZONE</span>
-                  <p className="detail-value">{timeZone}</p>
+                  <p className="detail-value">UTC {timeZone}</p>
                 </div>
                 <div className="detail-col col-md-3 border-0">
                   <span className="detail-label">ISP</span>
@@ -99,16 +93,18 @@ const App = () => {
         </div>
 
         <div className="map p-0">
-          <MapContainer center={[lat, lng]} zoom={16} scrollWheelZoom={false}>
-            <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={[lat, lng]}>
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
-            </Marker>
-          </MapContainer>
+          {searchResults &&
+            <MapContainer center={[lat, lng]} zoom={12} scrollWheelZoom={false}>
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={[lat, lng]}>
+                <Popup>
+                  {isp} <br /> {location}
+                </Popup>
+              </Marker>
+            </MapContainer>
+          }
         </div>
 
       </div>
